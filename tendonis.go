@@ -84,7 +84,7 @@ func (s *Server) getTransport(r *http.Request) graphql.Transport {
 }
 
 func (s *Server) Serve() {
-	topic := fmt.Sprintf("%s-%s", "tendonis/", s.eventStream.GetServiceName())
+	topic := fmt.Sprintf("%s::%s", "tendonis", s.eventStream.GetServiceName())
 	err := s.eventStream.Subscribe(topic, func(event axon.Event) {
 		var request axon.RequestPayload
 		if err := json.Unmarshal(event.Data(), &request); err != nil {
